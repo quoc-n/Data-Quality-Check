@@ -18,7 +18,7 @@ logs to a file. To use this data validation, test cases are needed to configure 
   `ModifiedAt` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   PRIMARY KEY (`Id`),
   UNIQUE KEY `TargetTable` (`TargetTable`,`ColumnName`,`Test`)
-)
+)```
 
 ### Sample configurations
 ![Capture](https://github.com/quoc-n/Data-Quality-Check/assets/30258226/e8c6ad20-ac15-4460-95c9-58b90565af27)
@@ -35,7 +35,7 @@ write_df_to_html: writing the validation logs (dataframe) to an html file
             'Reference Values': self.__check_reference_values__,
             'Accepted Values': self.__check_accepted_values__,
             'SQL-Assertion': self.__check_sql_assertion__
-        }
+        }```
 1. Freshness: a test to check the fresshness of a dataset based on a timestamp column (by comparing the most recent record with current timestamp to determine how fresh the dataset is). In other words, freshness is used to define the acceptable amount of time between the most recent record, and now
 
 Example ValueConfig: {"count": 3, "period": "day"}
