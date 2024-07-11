@@ -73,11 +73,11 @@ For above sql check, we don’t expect to get any transactions which have price 
 ## Packing and using the distributed package 
 ### distributing package as ep_services
 build:
-python -m pip install --upgrade build
+python -m pip install --upgrade build \
 python -m build --outdir ./ep_services/package-dist
 
 ### installing ep_services
-python -m pip install --no-index --find-links="/home/edge/python-crawler/service-packages/" ep_services
+python -m pip install --no-index --find-links="/home/edge/python-crawler/service-packages/" ep_services \
 python3 -m pip install --no-index --find-links="D:/EdgeProp/repos/edgeprop-analytics/python-crawler/service-packages/" ep_services
 
 ## using ep_services
