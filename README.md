@@ -26,8 +26,8 @@ CREATE TABLE `_DataValidationCfg` (
 ![Capture](https://github.com/quoc-n/Data-Quality-Check/assets/30258226/e8c6ad20-ac15-4460-95c9-58b90565af27)
 
 ### The following are exposed functions:
-validate: executing all test cases and return a validation log in dataframe
-write_df_to_html: writing the validation logs (dataframe) to an html file
+- validate: executing all test cases and return a validation log in dataframe
+- write_df_to_html: writing the validation logs (dataframe) to an html file
 
 ### The following are supported tests in validation process:
 ```
@@ -81,9 +81,10 @@ python -m pip install --no-index --find-links="/home/edge/python-crawler/service
 python3 -m pip install --no-index --find-links="D:/EdgeProp/repos/edgeprop-analytics/python-crawler/service-packages/" ep_services
 
 ## using ep_services
+```
 from ep_services import DataValidation
 
--- df_source_data: is a pandas dataframe contains the data that is needed to verify through all configured test cases in the table _DataValidationCfg
+# df_source_data: is a pandas dataframe contains the data that is needed to verify through all configured test cases in the table _DataValidationCfg
 
 df_validation_logs = DataValidation('st_project', _df_test_data=df_source_data).validate()
 df_failure_logs = df_validation_logs[df_validation_logs['Validated'] == Enum.Validation.FAILED]
@@ -97,4 +98,4 @@ if len(df_failure_logs) > 0:
         pass
     else:
         logger.info("Input dataset contains data quality issues which are configured as Warn on Severity.")
-
+```
