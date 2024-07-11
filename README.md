@@ -2,11 +2,11 @@ Welcome to Data Quality Checks project!
 
 This Data Quality Check to run on every data pipeline for data accuracy checking based on model configurations. The module can be packed and distributed as a package for different purposes of use.
 
-### Resources: DataValidation module
+## Resources: DataValidation module
 The module exposes functions to execute data quality checks based on the configured test cases, and able to choose writing the validation
 logs to a file. To use this data validation, test cases are needed to configure properly in the table _DataValidationCfg
 
-CREATE TABLE `_DataValidationCfg` (
+```CREATE TABLE `_DataValidationCfg` (
   `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `TargetTable` varchar(50) NOT NULL,
   `ColumnName` varchar(50) NOT NULL,
@@ -20,15 +20,15 @@ CREATE TABLE `_DataValidationCfg` (
   UNIQUE KEY `TargetTable` (`TargetTable`,`ColumnName`,`Test`)
 )
 
-## Sample configuration
+### Sample configurations
 ![Capture](https://github.com/quoc-n/Data-Quality-Check/assets/30258226/e8c6ad20-ac15-4460-95c9-58b90565af27)
 
-## The following are exposed functions:
+### The following are exposed functions:
 validate: executing all test cases and return a validation log in dataframe
 write_df_to_html: writing the validation logs (dataframe) to an html file
 
-## The following are supported tests in validation process:
-_test = {
+### The following are supported tests in validation process:
+```_test = {
             'Freshness': self.__check_freshness__,
             'Unique': self.__check_unique__,
             'Not Null': self.__check_not_null__,
@@ -66,13 +66,13 @@ Example ValueConfig: select count(*) as cnt from tx_era_stage where tsac_price <
 For above sql check, we don’t expect to get any transactions which have price < 0, hence if the execution returned records, it will assert as failed
 
 
-### Packing and using the distributed package 
-## distributing package as ep_services
+## Packing and using the distributed package 
+### distributing package as ep_services
 build:
 python -m pip install --upgrade build
 python -m build --outdir ./ep_services/package-dist
 
-## installing ep_services
+### installing ep_services
 python -m pip install --no-index --find-links="/home/edge/python-crawler/service-packages/" ep_services
 python3 -m pip install --no-index --find-links="D:/EdgeProp/repos/edgeprop-analytics/python-crawler/service-packages/" ep_services
 
