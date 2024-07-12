@@ -23,7 +23,8 @@ CREATE TABLE `_DataValidationCfg` (
 ```
 
 ### Sample configurations
-![Capture](https://github.com/quoc-n/Data-Quality-Check/assets/30258226/e8c6ad20-ac15-4460-95c9-58b90565af27)
+![image](https://github.com/user-attachments/assets/7eaee82c-366b-4ec5-a788-1e2621ed80ca)
+
 
 ### The following are exposed functions:
 - validate: executing all test cases and return a validation log in dataframe
