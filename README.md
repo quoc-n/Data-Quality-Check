@@ -40,32 +40,32 @@ _test = {
 ```
 1. Freshness: a test to check the fresshness of a dataset based on a timestamp column (by comparing the most recent record with current timestamp to determine how fresh the dataset is). In other words, freshness is used to define the acceptable amount of time between the most recent record, and now
 
-Example ValueConfig: {"count": 3, "period": "day"}
+Example ValueConfig: {"count": 2, "period": "day"}
 - count: an integer number
 - period: minute, hour, day, month, year
 
 2. Unique: a test to verify that every value in a column contains unique values
 
-Example ValueConfig: null if 1 column check; or multiple columns check: {“columns”: [“tsac_no“, “type”]}
+Example ValueConfig: null if 1 column check; or multiple columns check: {"columns": ["Player_Email", "Player_Phone"]}
 
 3. Not Null: a test to check that the values for a given column are always present
 
 4. Reference Values: a test to check referential integrity
 
-Example ValueConfig: {"table": "st_project", "column": "project_name",  "where_sql": "where country='Singapore'" }
+Example ValueConfig: {"table": "Dim_Currencies", "column": "Currency_External_Id",  "where_sql": "where Audit_IsCurrent=1" }
 - table: a table name
 - column: a column name on the table to refer
 - where_sql: a valid sql where clause
 
 5. Accepted Values: a test to validate whether a set of values within a column is present
 
-Example ValueConfig: ["SALE","RENTAL","ASSIGNMENT","NEWHOME"]
+Example ValueConfig: ["EN", "SV"]
 
 6. SQL-Assertion: a test to execute a sql statement to assert if the validation is correct
 
-Example ValueConfig: select count(*) as cnt from tx_era_stage where tsac_price < 0
+Example ValueConfig: select count(*) as cnt from Dim_Players where Player_Currency not in (select Currency_External_Id from Dim_Currencies)
 
-For above sql check, we don’t expect to get any transactions which have price < 0, hence if the execution returned records, it will assert as failed
+For above sql check, we don’t expect to get any players who have currency not in the Dim_Currencies list, if the execution returned records, it will assert as failed
 
 
 ## Packing and using the distributed package 
