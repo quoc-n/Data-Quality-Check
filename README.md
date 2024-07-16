@@ -7,23 +7,20 @@ The module exposes functions to execute data quality checks based on the configu
 logs to a file. To use this data validation, test cases are needed to configure properly in the table _DataValidationCfg
 
 ```
-CREATE TABLE `_DataValidationCfg` (
-  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `TargetTable` varchar(50) NOT NULL,
-  `ColumnName` varchar(50) NOT NULL,
-  `Test` varchar(20) NOT NULL,
-  `ValueConfig` varchar(1024) DEFAULT NULL,
-  `Severity` varchar(10) DEFAULT 'Error',
-  `Status` varchar(10) DEFAULT 'Active',
-  `Description` varchar(255) DEFAULT NULL,
-  `ModifiedAt` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  PRIMARY KEY (`Id`),
-  UNIQUE KEY `TargetTable` (`TargetTable`,`ColumnName`,`Test`)
-)
+CREATE TABLE [dbo].[_DataValidationCfg](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[TargetTable] [varchar](50) NULL,
+	[ColumnName] [varchar](50) NULL,
+	[Test] [varchar](50) NULL,
+	[ValueConfig] [varchar](512) NULL,
+	[Severity] [varchar](10) NULL,
+	[Status] [varchar](10) NULL,
+	[Desc] [varchar](256) NULL
+) ON [PRIMARY]
 ```
 
 ### Sample configurations
-![image](https://github.com/user-attachments/assets/7eaee82c-366b-4ec5-a788-1e2621ed80ca)
+![image](https://github.com/user-attachments/assets/e8565964-508f-45f4-9207-63175111985f)
 
 
 ### The following are exposed functions:
