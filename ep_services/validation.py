@@ -16,10 +16,11 @@ class DataValidation:
         self.df_test_data = _df_test_data
         self.sql_assertion_only = True if self.df_test_data is None else False
 
-        self.db_engine = get_db_engine()
         self.log_header = ['Target Table', 'Column Name', 'Test', 'Value Config', 'Severity', 'Validated', 'Failure Data']
         self.validation_logs = []
         self.df_logs = pd.DataFrame()
+
+        self.db_engine = get_db_engine()
 
     def __call__(self, *args, **kwargs):
         self.validate()
@@ -161,8 +162,7 @@ class DataValidation:
         df_findings = self.df_test_data.loc[self.df_test_data[_column].isin(Nulls)]
         if len(df_findings) > 0:
             self.validation_logs.append(
-                test_cfg.tolist() + [Enum.Validation.FAILED, df_findings.head(10).to_json(orient='split',
-                                                                                          index=False)])
+                test_cfg.tolist() + [Enum.Validation.FAILED, df_findings.head(10).to_json(orient='split', index=False)])
         else:
             self.validation_logs.append(test_cfg.tolist() + [Enum.Validation.PASSED, None])
 
@@ -214,7 +214,7 @@ class DataValidation:
 
         if len(df_findings) > 0:
             self.validation_logs.append(
-                test_cfg.tolist() + [Enum.Validation.FAILED, df_findings.head(10).to_json(orient='split', index=False)])
+                test_cfg.tolist() + [Enum.Validation.FAILED, df_findings.head(5).to_json(orient='split', index=False)])
         else:
             self.validation_logs.append(test_cfg.tolist() + [Enum.Validation.PASSED, None])
 

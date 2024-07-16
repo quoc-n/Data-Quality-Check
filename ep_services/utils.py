@@ -44,10 +44,14 @@ def get_db_engine():
     config = get_config()
     db_cfg = config['Connections']['AleaccBI']
 
+    db_password = db_cfg['Password']
+    if db_cfg['EncryptedKey']:
+        db_password = Crypto.decrypt(db_password, db_cfg['EncryptedKey'])
+
     db_engine = create_engine(
         "mssql+pymssql://{}:{}@{}:{}/{}".format(
             db_cfg['UserName'],
-            db_cfg['Password'],
+            db_password,
             db_cfg['Server'],
             db_cfg['Port'],
             db_cfg['Database']
