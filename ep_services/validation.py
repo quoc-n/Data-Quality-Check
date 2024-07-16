@@ -2,7 +2,7 @@ import os
 import logging
 import json
 from datetime import (date, datetime)
-from utils import (Nulls, Enum, get_config, get_property_db_engine, get_error_msg)
+from utils import (Nulls, Enum, get_config, get_db_engine, get_error_msg)
 
 import numpy as np
 import pandas as pd
@@ -16,7 +16,7 @@ class DataValidation:
         self.df_test_data = _df_test_data
         self.sql_assertion_only = True if self.df_test_data is None else False
 
-        self.db_engine = get_property_db_engine()
+        self.db_engine = get_db_engine()
         self.log_header = ['Target Table', 'Column Name', 'Test', 'Value Config', 'Severity', 'Validated', 'Failure Data']
         self.validation_logs = []
         self.df_logs = pd.DataFrame()
@@ -50,8 +50,11 @@ class DataValidation:
                     # takes all available tests based on the df_test_data, but not SQL-Assertion tests
                     _included_columns = self.df_test_data.columns
                     df_test_cases = df_validation_cfg.loc[
-                        (df_validation_cfg['ColumnName'].isin(Nulls) & df_validation_cfg["Test"] != 'SQL-Assertion')
-                        | (df_validation_cfg['ColumnName'].isin(_included_columns))]
+                        df_validation_cfg['ColumnName'].isin(_included_columns) |
+                        (
+                            df_validation_cfg['ColumnName'].isin(Nulls) & (df_validation_cfg["Test"] != 'SQL-Assertion')
+                        )
+                    ]
 
                 # start running validation
                 for idx, testcase in df_test_cases.iterrows():

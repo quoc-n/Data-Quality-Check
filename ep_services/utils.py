@@ -46,6 +46,23 @@ def read_sql_text(_file_path):
         return f.read()
 
 
+def get_db_engine():
+    config = get_config()
+    db_cfg = config['Connections']['AleaccBI']
+
+    db_engine = create_engine(
+        "mssql+pymssql://{}:{}@{}:{}/{}".format(
+            db_cfg['UserName'],
+            db_cfg['Password'],
+            db_cfg['Server'],
+            db_cfg['Port'],
+            db_cfg['Database']
+        )
+    )
+
+    return db_engine
+
+
 def get_property_db_engine():
     config = get_config()
 

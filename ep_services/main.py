@@ -1,7 +1,7 @@
-from .validation import DataValidation
+from ep_services import DataValidation
 
 import pandas as pd
-from utils import (init_logging, get_property_db_engine)
+from utils import (init_logging, get_db_engine)
 
 
 if __name__ == '__main__':
@@ -9,34 +9,28 @@ if __name__ == '__main__':
     init_logging()
 
     # get data set for validation
-    query = '''
-            select 
-                id
-                , project_name
-                , project_alias
-                , approx_x
-                , approx_y
-                , postal_code
-                , street_name
-                , lon
-                , lat
-                , timestamp
-                , land_area
-                , gfa
-                , plot_ratio
-                , asset_id
-                , landed_asset_id
-                , non_landed_asset_id
-                , active
-            from st_project 
-            limit 1000;
-        '''
+    query = """
+        SELECT TOP (1000) [Player_Id]
+          ,[Player_External_Id]
+          ,[Player_Login]
+          ,[Player_Password]
+          ,[Player_Nick_Name]
+          ,[Player_Language]
+          ,[Player_Currency]
+          ,[Player_Affiliate]
+          ,[Player_Verified_Date]
+          ,[Player_Register_Date]
+          ,[Player_Login_Date]
+          ,[Player_First_Name]
+          ,[Player_Middle_Name]
+          ,[Player_Last_Name]
+      FROM [Dim_Players]
+    """
 
-    df_test_data = pd.read_sql_query(query, get_property_db_engine())
+    df_test_data = pd.read_sql_query(query, get_db_engine())
 
     # call data services to test the test data which is targeted to st_project table
-    df_validation_logs = DataValidation('st_project', _df_test_data=df_test_data).validate()
-    # df_validation_logs = DataValidation('tx_era_stage2', _df_test_data=None).validate()
+    df_validation_logs = DataValidation('Dim_Players', _df_test_data=df_test_data).validate()
 
     # process the validation output
     df_failure_logs = df_validation_logs[df_validation_logs['Validated'] == 'Failed']

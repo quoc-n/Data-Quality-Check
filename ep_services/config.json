@@ -1,13 +1,20 @@
 {
   "Connections": {
-      "Property": {
-        "Server": "edgeprop-staging-2020.cvpg2ffz3zlm.ap-southeast-1.rds.amazonaws.com",
-        "Port": 3306,
-        "Database": "property",
-        "UserName": "EdgeProperty",
-        "Password": "gAAAAABgokdzTlLpTrKoJOTO2dP6s3k-VDLiKnhw_hTmWIUbrSZHcwTQm_XqoNCgS6SG6fWgZO-sljzWfkQFxMyh0Kc2O6ZvdQ==",
-        "EncryptedKey": "jstMarYOzfH6cstO9cnvUH8ctI4khcWby1A-5O-Rh7Y="
-      }
+    "Property": {
+      "Server": "edgeprop-staging-2020.cvpg2ffz3zlm.ap-southeast-1.rds.amazonaws.com",
+      "Port": 3306,
+      "Database": "property",
+      "UserName": "EdgeProperty",
+      "Password": "gAAAAABgokdzTlLpTrKoJOTO2dP6s3k-VDLiKnhw_hTmWIUbrSZHcwTQm_XqoNCgS6SG6fWgZO-sljzWfkQFxMyh0Kc2O6ZvdQ==",
+      "EncryptedKey": "jstMarYOzfH6cstO9cnvUH8ctI4khcWby1A-5O-Rh7Y="
+    },
+    "AleaccBI": {
+      "Server": "NAQHUB",
+      "Port": 1433,
+      "Database": "AleaccBI",
+      "UserName": "quocna",
+      "Password": "quocna"
+    }
   },
   "SSH_Tunnel":  true,
   "Sandbox": {
