@@ -2,7 +2,7 @@ Welcome to Data Quality Checks project!
 
 This Data Quality Check to run on every data pipeline for data accuracy checking based on model configurations. The module can be packed and distributed as a package for different purposes of use.
 
-## Resources: DataValidation module
+## Resources
 The module exposes functions to execute data quality checks based on the configured test cases, and able to choose writing the validation
 logs to a file. To use this data validation, test cases are needed to configure properly in the table _DataValidationCfg
 
@@ -20,7 +20,8 @@ CREATE TABLE [dbo].[_DataValidationCfg](
 ```
 
 ### Sample configurations
-![image](https://github.com/user-attachments/assets/e8565964-508f-45f4-9207-63175111985f)
+![image](https://github.com/user-attachments/assets/e40769ef-2361-462b-863a-41393df3a08e)
+
 
 
 ### The following are exposed functions:
