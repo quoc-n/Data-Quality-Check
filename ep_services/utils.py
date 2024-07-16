@@ -5,7 +5,6 @@ import traceback
 from datetime import date, datetime
 
 from cryptography.fernet import Fernet
-from sshtunnel import SSHTunnelForwarder
 from sqlalchemy import create_engine
 
 import pandas as pd
@@ -41,11 +40,6 @@ def get_error_msg():
     return _error_msg
 
 
-def read_sql_text(_file_path):
-    with open(_file_path) as f:
-        return f.read()
-
-
 def get_db_engine():
     config = get_config()
     db_cfg = config['Connections']['AleaccBI']
@@ -61,41 +55,6 @@ def get_db_engine():
     )
 
     return db_engine
-
-
-def get_property_db_engine():
-    config = get_config()
-
-    db_cfg = config['Connections']['Property']
-    if config['SSH_Tunnel']:
-        sandbox_cfg = config['Sandbox']
-        sandbox = SSHTunnelForwarder(
-            ssh_address_or_host=(sandbox_cfg['Server'], sandbox_cfg['Port']),
-            ssh_config_file=sandbox_cfg['SSH_Config'],
-            # ssh_private_key_password='',
-            remote_bind_address=(db_cfg['Server'], db_cfg['Port'])
-        )
-        sandbox.start()
-
-        db_password = db_cfg['Password']
-        if db_cfg['EncryptedKey']:
-            db_password = Crypto.decrypt(db_password, db_cfg['EncryptedKey'])
-
-        local_port = str(sandbox.local_bind_port)
-        db_engine = create_engine('mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'
-                                  .format(db_cfg['UserName'], db_password, '127.0.0.1', local_port, db_cfg['Database']),
-                                  pool_recycle=1)
-
-        return db_engine
-    else:
-        db_password = db_cfg['Password']
-        if db_cfg['EncryptedKey']:
-            db_password = Crypto.decrypt(db_password, db_cfg['EncryptedKey'])
-
-        db_engine = create_engine('mysql+pymysql://{}:{}@{}:{}/{}'.format(db_cfg['UserName'], db_password, db_cfg['Server'],
-                                                                          db_cfg['Port'], db_cfg['Database']))
-
-        return db_engine
 
 
 class Enum:

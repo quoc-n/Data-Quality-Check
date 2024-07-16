@@ -24,6 +24,15 @@ if __name__ == '__main__':
           ,[Player_First_Name]
           ,[Player_Middle_Name]
           ,[Player_Last_Name]
+          ,[Player_Address1]
+          ,[Player_Address2]
+          ,[Player_Address3]
+          ,[Player_Region]
+          ,[Player_City]
+          ,[Player_ZipCode]
+          ,[Player_Country]
+          ,[Player_Email]
+          ,[Player_Phone]
       FROM [Dim_Players]
     """
 
